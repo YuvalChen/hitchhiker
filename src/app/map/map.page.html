@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>map</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <h1>HitchHicker</h1>
+    <div class="form-group">
+      <input
+        placeholder="search for origin"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        type="text"
+        class="inputText"
+        #search
+      />
+
+      <input
+        placeholder="search for destination"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        type="text"
+        class="inputText"
+        #search
+      />
+
+      <input
+        placeholder="search for home"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        type="text"
+        class="inputText"
+        #search
+      />
+    </div>
+    <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [scrollwheel]="null"
+      [zoom]="zoom"
+    >
+      <agm-direction
+        [origin]="originLocation"
+        [destination]="destinationLocation"
+        (onResponse)="yuval($event)"
+        [renderOptions]="{ polylineOptions: { strokeColor: '#0f0' } }"
+      >
+        <div *ngFor="let coord of allCoordinates | async">
+          <agm-direction
+            [origin]="coord"
+            [destination]="homeLocation"
+            [travelMode]="'TRANSIT'"
+            (onResponse)="aviv($event)"
+            (onChange)="timoor($event)"
+          >
+          </agm-direction>
+        </div>
+      </agm-direction>
+    </agm-map>
+  </div>
+</ion-content>
